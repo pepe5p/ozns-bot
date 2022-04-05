@@ -1,0 +1,10 @@
+granie combo bez liczenia
+alpha beta pruning (albo jakiś inny)
+trap finding
+bot żeby ogarniał że gra sie do 12
+to co se policzył to żeby tego nie liczył drugi raz
+
+removy
+podświetlenie legalnych ruchów po setLetter()
+z boku żeby były poprzednie plansze i ruchy
+procent ładowania bota (ruchu w sensie)

@@ -1,0 +1,524 @@
+
+@import url("https://fonts.googleapis.com/css?family=Righteous");
+
+$red: #FF6666;
+$dred: #882222;
+$yellow: #CC9900;
+$dyellow: #7A5C00;
+$green: #29A37A;
+$dgreen: #196149;
+$blue: #6666ff;
+$dblue: #222288;
+
+$white: #CACAE3;
+$grey: #6060A9;
+$dgrey: #383867;
+$dgrey_transparent: rgba(56, 56, 103, 0.3);
+$black: #040410;
+$black_transparent: rgba(4, 4, 16, 0.9);
+
+
+*, ::after, ::before{
+  box-sizing: border-box;
+  -moz-user-select: none; // Firefox
+  -ms-user-select: none; // Internet Explorer
+  -khtml-user-select: none; // KHTML browsers (e.g. Konqueror)
+  -webkit-user-select: none; // Chrome, Safari, and Opera
+  -webkit-touch-callout: none; // Disable Android and iOS callouts
+  user-select: none;
+  padding: 0;
+  margin: 0;
+}
+
+::-webkit-scrollbar{
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track{
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb{
+  background: $dgrey_transparent;
+}
+
+body{
+  color: $white;
+  font-size: 20px;
+  font-family: "Righteous", cursive;
+  background-color: $black;
+}
+
+//TEXT
+a{
+  text-decoration: none;
+}
+
+.blur{
+  color: $white;
+  transition: color .3s;
+  &:hover{
+    color: $grey;
+  }
+}
+
+.sblur{
+  color: $green;
+  transition: color .3s;
+  &:hover{
+    color: $dgreen;
+  }
+}
+
+/*ROTATE 3D */
+
+.rotatebox, .container{
+  width: 100%;
+  height: 100%;
+}
+
+.perspective{
+  width: 100%;
+  background: $black;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  -webkit-perspective: 1500px;
+  perspective: 1500px;
+  overflow: hidden;
+}
+
+.rotatebox{
+  position: relative;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: transform .5s;
+  z-index: 10;
+  -webkit-transform: translateZ(0) translateX(0) rotateY(0deg);
+  transform: translateZ(0) translateX(0) rotateY(0deg);
+}
+
+.container{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: $black;
+  transform: translateZ(-1px);
+  overflow-y: auto;
+}
+
+.game{
+  &::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    opacity: 0;
+    background-color: $dgrey_transparent;
+    transition: opacity 0.4s, height 0s 0.4s;
+    cursor: pointer;
+  }
+}
+
+.game.hide{
+  &::after{
+    opacity: 1;
+    height: 100%;
+    transition: opacity 0.3s;
+  }
+}
+
+.game, .behind{
+  backface-visibility: hidden;
+}
+
+.behind{
+  transform: translateZ(-100vw) rotateY(180deg);
+}
+
+//TITLE
+.titlebox{
+  height: 240px;
+  position: relative;
+  & .title{
+    text-align: center;
+    color: $dgrey;
+    text-shadow: 0 0 10px $white, 0 0 30px $grey, 0 0 50px $dgrey;
+    & h1{
+      font-size: 85px;
+      line-height: 65px;
+      letter-spacing: -3px;
+    }
+  }
+}
+
+//BOXES
+.xcbox{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.ycbox{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.xcbox.ycbox{
+  transform: translate(-50%, -50%);
+}
+.box300{
+  width: 300px;
+}
+.box240{
+  width: 240px;
+}
+.box_flexible{
+  min-width: 300px;
+  max-width: 400px;
+}
+.border{
+  border: 8px solid $dgrey;
+}
+.scrollable{
+  height: 100%;
+  overflow-y: auto;
+}
+
+//TABLES
+.flexbox{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flexbox_middle{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tablerow{
+  text-align: center;
+  position: relative;
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 2px;
+  background-color: $dgrey_transparent;
+  line-height: 40px;
+  color: $grey;
+  padding: 0 5px;
+  font-size: 16px;
+  &.half{
+    width: calc(50% - 1px);
+  }
+  &.left{
+    margin-right: 2px;
+  }
+  .title{
+    margin: 0 5px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .action_icon{
+    position: absolute;
+    right: 10px;
+  }
+}
+
+input[type="radio"]{
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.radio_tile{
+  margin: 0 5px 10px 5px;
+  .item_box{
+    border: 2px solid transparent;
+    position: relative;
+    min-width: 45px;
+    line-height: 36px;
+    height: 40px;
+    cursor: pointer;
+    background-color: $dgrey_transparent;
+    padding: 0 10px;
+    border-radius: 5px;
+    color: $white;
+    transition: border-color .2s, color .2s;
+    .checkbox{
+      display: none;
+      position: absolute;
+      top: -15px;
+      right: -2.5px;
+      height: 20px;
+      width: 20px;
+    }
+  }
+  &.active{
+    .item_box{
+      border-color: $dgrey;
+      color: $green;
+      &:hover{
+        border-color: $dgrey;
+      }
+      .checkbox{
+        display: block;
+      }
+    }
+  }
+  &.disabled{
+    .item_box{
+      cursor: default;
+      color: $grey;
+    }
+  }
+}
+
+button, input[type="text"]{
+  border: 2px solid $dgrey;
+  height: 30px;
+  vertical-align: top;
+  outline: none;
+  font-family: "Righteous", cursive;
+  background-color: transparent;
+  width: 100%;
+  text-align: center;
+  font-size: inherit;
+  margin-top: 5px;
+  border-radius: 5px;
+  color: $white;
+  transition: background-color .2s, color .2s;
+}
+
+button{
+  cursor: pointer;
+  &:hover{
+    color: $green;
+    background-color: $dgrey_transparent;
+  }
+  a{
+    display: block;
+    width: 100%;
+    height: 26px;
+    line-height: 26px;
+  }
+}
+
+input[type="text"]{
+  &:focus{
+    background-color: $dgrey_transparent;
+  }
+}
+
+// GAME
+.nav{
+  position: absolute;
+  top: 0;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  cursor: pointer;
+  z-index: 99;
+}
+
+.variants{
+  position: absolute;
+  top: 60px;
+  width: 100%;
+  .variant_row{
+    height: 30px;
+    line-height: 30px;
+    background-color: $dgrey_transparent;
+    font-size: 16px;
+    display: flex;
+    .points{
+      width: 80px;
+      text-align: center;
+      border-right: 4px solid $dgrey_transparent;
+    }
+    .variant_tile{
+      color: $grey;
+      margin-left: 10px;
+    }
+  }
+}
+
+.sidenav{
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  max-width: 300px;
+  transform: translateY(-50%);
+  @media (max-width: 500px){
+    right: 40%;
+    left: 5px;
+  }
+}
+
+.player1{
+  top: -50px;
+}
+
+.player0{
+  bottom: -50px;
+}
+
+.playerbox{
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 20px;
+  transition: background-color .2s;
+  &.active{
+    background-color: $dgrey_transparent;
+  }
+  .score{
+    font-size: 26px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    text-align: center;
+  }
+  .name{
+    position: absolute;
+    top: 0;
+    left: 62px;
+    max-width: 150px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .timerbox{
+    position: absolute;
+    top: 0;
+    right: 2px;
+    width: 65px;
+  }
+}
+
+.turnbox{
+  position: absolute;
+  bottom: -80px;
+  right: 0;
+  .button{
+    transition: opacity .2s;
+    &.clicked{
+      opacity: 0.3;
+    }
+    &.active{
+      cursor: pointer;
+      &:hover{
+        opacity: 0.6;
+      }
+    }
+  }
+}
+
+.panelbox{
+  width: 100%;
+  height: 70px;
+  bottom: 10px;
+  position: absolute;
+  background-color: $dgrey_transparent;
+}
+
+.summary{
+  text-align: center;
+  z-index: 1;
+  .tablerow{
+    background-color: $black_transparent;
+  }
+  &.hided{
+    display: none;
+  }
+}
+
+#board{
+  .flexbox{
+    width: 100%;
+    height: 100%;
+    flex-wrap: wrap-reverse;
+    .timer{
+      position: absolute;
+      width: 100%;
+      &.top{
+        top: -5px;
+      }
+      &.bottom{
+        bottom: -5px;
+      }
+      .bar{
+        height: 2px;
+        background-color: $white;
+        border-radius: 2px;
+        transition: background-color .2s, width .2s;
+      }
+    }
+  }
+}
+
+.description{
+  color: $grey;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  position: absolute;
+  font-size: 14px;
+  border: none;
+  background-color: transparent;
+  z-index: 1;
+}
+
+.tile{
+  position: relative;
+  border-radius: 20%;
+  text-align: center;
+  border: 2px solid $dgrey;
+  background-color: $dgrey_transparent;
+  transition: border-width .1s,  line-height .1s, background-color .15s;
+  .dot{
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20%;
+    height: 20%;
+    transform: translate(-50%, -50%);
+    background-color: $dgrey_transparent;
+    border-radius: 100%;
+  }
+  &.ready{
+    .dot{
+      display: block;
+    }
+  }
+  &.letters{
+    width: 60px;
+    height: 60px;
+    line-height: 56px;
+    font-size: 48px;
+  }
+  &.dred{
+    background-color: $dred !important;
+  }
+  &.dgreen{
+    background-color: $dgreen !important;
+  }
+  &.dblue{
+    background-color: $dblue;
+  }
+  &.active{
+    background-color: $black;
+    cursor: pointer;
+    &:hover{
+      border-width: 4px;
+      line-height: 52px;
+    }
+  }
+}
