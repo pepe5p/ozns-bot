@@ -9,4 +9,3 @@ bot created to beat you in OZNS game
 
 multiplayer version:
 * [link to github repo](https://github.com/pepe5p/ozns-mp)
-* [website](https://oznsgame.herokuapp.com)
